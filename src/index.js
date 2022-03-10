@@ -37,8 +37,6 @@ const MORSE_TABLE = {
     '-----':  '0',
 }
 
-
-
 function decode(expr) {
     let space = '**********';
     let words = [];
@@ -55,13 +53,13 @@ function decode(expr) {
     for (let i = 0; i < words.length; i++) {
       while (words[i].length > 0) {
         cutWord = words[i].slice(0, 10);
-        wordOne = cutWord.replaceAll('10', '.').replaceAll('11', '-').replaceAll('0', '');
+        wordOne = cutWord.replaceAll(/10/g, '.').replaceAll(/11/g, '-').replaceAll(/0/g, '');
         wordAll += MORSE_TABLE[wordOne];
         words[i] = words[i].replace(`${cutWord}`, '');
       }
       wordAll += ' ';
     }
-    return wordAll.trimEnd();
+    return wordAll.trimEnd()
 }
 
 module.exports = {
