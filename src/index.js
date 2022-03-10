@@ -35,10 +35,33 @@ const MORSE_TABLE = {
     '---..':  '8',
     '----.':  '9',
     '-----':  '0',
-};
+}
+
+
 
 function decode(expr) {
-    // write your solution here
+    let space = '**********';
+    let words = [];
+    let wordOne = '';
+    let wordAll = '';
+    let cutWord = '';
+
+    if (expr.includes(space)) {
+      words = expr.split(space);
+    } else {
+      words.push(expr);
+    }
+
+    for (let i = 0; i < words.length; i++) {
+      while (words[i].length > 0) {
+        cutWord = words[i].slice(0, 10);
+        wordOne = cutWord.replaceAll('10', '.').replaceAll('11', '-').replaceAll('0', '');
+        wordAll += MORSE_TABLE[wordOne];
+        words[i] = words[i].replace(`${cutWord}`, '');
+      }
+      wordAll += ' ';
+    }
+    return wordAll.trimEnd();
 }
 
 module.exports = {
